@@ -28,6 +28,40 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+#Log settings
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters":{
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+        "file" : {
+            "class": "logging.FileHandler",
+            "filename": f"{BASE_DIR}/logs/Leazy.log",
+            "level" : "DEBUG",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+}
+
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'news'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +110,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'OPTION': {
+            "service" : "LeazyService",
+            "passfile" : ".leazy_pgpass"
+        }
     }
 }
 
