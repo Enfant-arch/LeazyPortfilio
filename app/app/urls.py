@@ -19,6 +19,8 @@ from django.urls import path, include
 from .view import  MainPageView
 
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", view=MainPageView.as_view(), name='main view'),
